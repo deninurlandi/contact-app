@@ -44,7 +44,7 @@ app.post(
   '/contact',
   [
     body('nama').custom(async (value) => {
-      const duplikat = await Contact.findOne({ nama: value });
+      const duplikat = await Contact.findOne({ nama: value }).maxTimeMS(30000);
       if (duplikat) {
         throw new Error('nama contact sudah ada');
       }
